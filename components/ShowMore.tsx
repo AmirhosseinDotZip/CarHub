@@ -1,32 +1,28 @@
-"use client"
+"use client";
 
-import { ShowMoreProps } from "@/types"
-import { useRouter } from "next/navigation"
-import CustomButton from "./CustomButton"
-import { updateSearchParams } from "@/utils"
+import { ShowMoreProps } from "@/types";
+import { CustomButton } from "@/components";
 
-const ShowMore = ({ pageNumber, isNext }: ShowMoreProps) => {
-    const router = useRouter()
-
+const ShowMore = ({ pageNumber, isNext, setLimit }: ShowMoreProps) => {
     const handleNavigation = () => {
-        const newLimit = (pageNumber + 1) * 10
-        const newPathName = updateSearchParams("limit", `${newLimit}`)
+        // Calculate the new limit based on the page number and navigation type
+        const newLimit = (pageNumber + 1) * 10;
 
-        router.push(newPathName)
-    }
+        setLimit(newLimit);
+    };
 
     return (
-        <div className="w-full flex-center gap-5 mt-10">
+        <div className='w-full flex-center gap-5 mt-10'>
             {!isNext && (
                 <CustomButton
-                    title="Show More"
-                    btnType="button"
-                    containerStyles="bg-primary-blue rounded-full text-white"
+                    btnType='button'
+                    title='Show More'
+                    containerStyles='bg-primary-blue rounded-full text-white'
                     handleClick={handleNavigation}
                 />
             )}
         </div>
-    )
-}
+    );
+};
 
-export default ShowMore
+export default ShowMore;
